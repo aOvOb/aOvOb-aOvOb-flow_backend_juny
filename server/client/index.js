@@ -158,11 +158,11 @@ function loadHTMLTable(data) {
   
     
     let tableHtml = ""
+        ,loadedCount
     loadedData = data['data']
+    loadedData?.length == undefined ? loadedCount = 0 : loadedCount = loadedData.length;
 
-    loadedData?.length == undefined ? loadedData.length = 0 : {};
-
-    document.getElementById("loadedCount").innerHTML = `차단된 확장자 개수: ${loadedData?.length}/200`
+    document.getElementById("loadedCount").innerHTML = `차단된 확장자 개수: ${loadedCount}/200`
 
     if(data['checkboxData']){
         for(let i = 0; i < data['checkboxData']?.length; i++){
