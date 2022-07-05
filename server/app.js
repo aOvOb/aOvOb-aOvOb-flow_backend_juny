@@ -29,10 +29,6 @@ app.post('/insert', (request, response) => {
     .catch(err => console.log(err));
 });
 
-app.get('/checkPost', (request, response) => {
-    console.log('requestrequestrequest',request)
-})
-
 app.post('/insertFixed', (request, response) => {
     const client = request.body;
     const db = dbService.getDbServiceInstance();

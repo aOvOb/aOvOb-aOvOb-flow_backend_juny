@@ -1,7 +1,7 @@
-const mysql = require('mysql');
-const dotenv = require('dotenv');
-let instance = null;
-dotenv.config();
+const mysql = require('mysql')
+const dotenv = require('dotenv')
+let instance = null
+dotenv.config()
 const mybatisMapper = require('mybatis-mapper')
 mybatisMapper.createMapper(['./xml/query.xml'])
 
@@ -28,15 +28,15 @@ let excQuery
 
 connection.connect((err) => {
     if (err) {
-        console.log(err.message);
+        console.log(err.message)
     }
     console.log('🏔 mysql is connected successfully!🏔  threaId : ' + connection.threadId)
-});
+})
 
 
 class DbService {
     static getDbServiceInstance() {
-        return instance ? instance : new DbService();
+        return instance ? instance : new DbService()
     }
 
     static getAllData() {
@@ -45,11 +45,11 @@ class DbService {
             params.sGetList = {}
             query.sGetList = mybatisMapper.getStatement('flow', 'getBannedExtList', params, {language: 'sql', indent: '  '})
             connection.query(query.sGetList, (err, data) => {
-                if (err) reject(err.message);
+                if (err) reject(err.message)
                 // console.log(data)
-                resolve(data);
+                resolve(data)
             })
-        });
+        })
     }
 
     static getAllCheckData() {
@@ -58,11 +58,11 @@ class DbService {
             params.sGetList = {}
             query.sGetList = mybatisMapper.getStatement('flow', 'selectFixedChecked', params, {language: 'sql', indent: '  '})
             connection.query(query.sGetList, (err, data) => {
-                if (err) reject(err.message);
+                if (err) reject(err.message)
                 // console.log(data)
-                resolve(data);
+                resolve(data)
             })
-        });
+        })
     }
 
 
@@ -75,9 +75,9 @@ class DbService {
             // console.log('real query : ',query.sInsertBanExt)
             connection.query(query.sInsertBanExt, (err, data, fields) => {
                 if (err) reject(err)
-                resolve(data);
+                resolve(data)
             })
-        });
+        })
     }
 
     static insertFixedBanExt(client) {
@@ -92,31 +92,27 @@ class DbService {
             // console.log('real query : ',query.sSelectBanExt)
             connection.query(query.sSelectFixedBanExt, (err, data, fields) => {
                 if (err) reject(err)
-                data.length > 0 ? existDataCheck.push(data) : {};
-                // resolve(data);
-                console.log('1111111111111111111111', existDataCheck)
-                console.log('2222222222222222222222', data)
-                console.log('existDataCheck.length',existDataCheck.length)
-                
+                data?.length > 0 ? existDataCheck.push(data) : {}
+                 
                 if (existDataCheck.length > 0){
-                    console.log('do update')
+                    // console.log('do update')
                     query.sUpdateFixedBanExt = mybatisMapper.getStatement('flow', 'UpdateFixedBanExt', params, {language: 'sql', indent: '  '})
                     // console.log('real query : ',query.sUpdateBanExt)
                     connection.query(query.sUpdateFixedBanExt, (err, data, fields) => {
                         if (err) reject(err)
-                        resolve(data);
+                        resolve(data)
                     })
                 } else {
                     query.sInsertFixedBanExt = mybatisMapper.getStatement('flow', 'insertFixedBanExt', params, {language: 'sql', indent: '  '})
                     // console.log('real query : ',query.sInsertBanExt)
                     connection.query(query.sInsertFixedBanExt, (err, data, fields) => {
                         if (err) reject(err)
-                        resolve(data);
+                        resolve(data)
                     })
                 }
             })
             
-        });
+        })
     }
 
     static deleteRowById(id) {
@@ -126,27 +122,24 @@ class DbService {
             }
             query.sDeleteExt = mybatisMapper.getStatement('flow', 'deleteBannedExt', params, {language: 'sql', indent: '  '})
             connection.query(query.sDeleteExt, (err, data) => {
-                if (err) reject(err);
-                resolve(data);
+                if (err) reject(err)
+                resolve(data)
             })
-        });
+        })
     }
 
     static updateNameById(client) {
-        // console.log('이건 아이디',id)
-        // console.log('이건 이름',name)
         return new Promise((resolve, reject) => {
             params.sUpdateExt = {
                 SYS_ID: client.id,
                 FW_EXT_NAME: client.name
             }
-            const queryres = query.sUpdateExt = mybatisMapper.getStatement('flow', 'updateBannedExt', params, {language: 'sql', indent: '  '})
-            console.log(queryres)
+            query.sUpdateExt = mybatisMapper.getStatement('flow', 'updateBannedExt', params, {language: 'sql', indent: '  '})
             connection.query(query.sUpdateExt, (err, data) => {
-                if (err) reject(err);
-                resolve(data);
+                if (err) reject(err)
+                resolve(data)
             })
-        });
+        })
     }
 
     static searchByName(name) {
@@ -158,11 +151,11 @@ class DbService {
             query.sSearchExt = mybatisMapper.getStatement('flow', 'searchExtByName', params, {language: 'sql', indent: '  '})
 
             connection.query(query.sSearchExt, (err, data) => {
-                if (err) reject(err);
-                resolve(data);
+                if (err) reject(err)
+                resolve(data)
             })
-        });
+        })
     }
 }
 
-module.exports = DbService;
+module.exports = DbService

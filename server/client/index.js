@@ -4,32 +4,23 @@ let loadedData
 document.addEventListener('DOMContentLoaded', function () {
     fetch('http://localhost:9298/getAll')
     .then(response => response.json())
-    .then(data => loadHTMLTable(data));
+    .then(data => loadHTMLTable(data))
     loadHTMLTable([])
-});
+})
 
 document.querySelector('table tbody').addEventListener('click', function(event) {
     if (event.target.className === "delete-row-btn") {
-        deleteRowById(event.target.dataset.id);
+        deleteRowById(event.target.dataset.id)
     }
     if (event.target.className === "edit-row-btn") {
-        handleEditRow(event.target.dataset.id);
+        handleEditRow(event.target.dataset.id)
     }
     // if (event.target.className === "goCheck") {
-    //     handleEditRow(event.target.dataset.id);
+    //     handleEditRow(event.target.dataset.id)
     // }
-});
+})
 
-const updateBtn = document.querySelector('#update-row-btn');
-// const searchBtn = document.querySelector('#search-btn');
-
-// searchBtn.onclick = function() {
-//     const searchValue = document.querySelector('#search-input').value;
-
-//     fetch('http://localhost:9298/search/' + searchValue)
-//     .then(response => response.json())
-//     .then(data => loadHTMLTable(data['data']));
-// }
+const updateBtn = document.querySelector('#update-row-btn')
 
 function deleteRowById(id) {
     fetch('http://localhost:9298/delete/' + id, {
@@ -38,19 +29,19 @@ function deleteRowById(id) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            location.reload();
+            location.reload()
         }
-    });
+    })
 }
 
 function handleEditRow(id) {
-    const updateSection = document.querySelector('#update-row');
-    updateSection.hidden = false;
-    document.querySelector('#update-name-input').dataset.id = id;
+    const updateSection = document.querySelector('#update-row')
+    updateSection.hidden = false
+    document.querySelector('#update-name-input').dataset.id = id
 }
 
 updateBtn.onclick = function() {
-    const updateNameInput = document.querySelector('#update-name-input');
+    const updateNameInput = document.querySelector('#update-name-input')
 
     fetch('http://localhost:9298/update', {
         method: 'PATCH',
@@ -65,18 +56,18 @@ updateBtn.onclick = function() {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            location.reload();
+            location.reload()
         }
     })
 }
 
 
-const addBtn = document.querySelector('#add-name-btn');
+const addBtn = document.querySelector('#add-name-btn')
 
 addBtn.onclick = function () {
-    const nameInput = document.querySelector('#name-input');
+    const nameInput = document.querySelector('#name-input')
     const name = nameInput.value.replace(/'|;|--|,|-/g, '')
-    nameInput.value = "";
+    nameInput.value = ""
 
     // 이름 중복체크 로직
     let arrExtName = []    
@@ -129,17 +120,17 @@ addBtn.onclick = function () {
 
 
 function insertRowIntoTable(data) {
-    const table = document.querySelector('table tbody');
-    const isTableData = table.querySelector('.no-data');
+    const table = document.querySelector('table tbody')
+    const isTableData = table.querySelector('.no-data')
 
-    let tableHtml = "<tr>";
+    let tableHtml = "<tr>"
 
     for (var key in data) {
         // console.log('여기는 데이터', data)
         // console.log('여기는 키', key)
         if (data.hasOwnProperty(key)) {
             if (key === 'dateAdded') {
-                data[key] = new Date(data[key]).toLocaleString();
+                data[key] = new Date(data[key]).toLocaleString()
             }
         }
     }
@@ -150,24 +141,26 @@ function insertRowIntoTable(data) {
     tableHtml += "</tr>";
 
     if (isTableData) {
-        table.innerHTML = tableHtml;
+        table.innerHTML = tableHtml
     } else {
-        const newRow = table.insertRow();
-        newRow.innerHTML = tableHtml;
+        const newRow = table.insertRow()
+        newRow.innerHTML = tableHtml
     }
 }
 
 function loadHTMLTable(data) {
-    const table = document.querySelector('table tbody');
+    const table = document.querySelector('table tbody')
  
     if (data['data']?.length == 0) {
         table.innerHTML = "<tr><td class='no-data' colspan='5'>No Data</td></tr>";
-        return;
+        return
     }
   
     
-    let tableHtml = "";
+    let tableHtml = ""
     loadedData = data['data']
+
+    loadedData?.length == undefined ? loadedData.length = 0 : {};
 
     document.getElementById("loadedCount").innerHTML = `차단된 확장자 개수: ${loadedData?.length}/200`
 
@@ -185,9 +178,9 @@ function loadHTMLTable(data) {
         tableHtml += `<td><button class="delete-row-btn" data-id=${SYS_ID}>Delete</td>`;
         // tableHtml += `<td><button class="edit-row-btn" data-id=${SYS_ID}>Edit</td>`;
         tableHtml += "</tr>";
-    });
+    })
 
-    table.innerHTML = tableHtml;
+    table.innerHTML = tableHtml
 }
 
 
