@@ -47,11 +47,14 @@ app.post('/insertFixed', (request, response) => {
 // read
 app.get('/getAll', async (request, response) => {
     const db = dbService.getDbServiceInstance();
+    let result2
 
     const result = dbService.getAllData();
-
-    const result2 = await dbService.getAllCheckData();
-
+    try{
+        result2 = await dbService.getAllCheckData()    
+    } catch(err){
+        console.error(err)
+    }
     result
     .then(data => response.json({data : data, checkboxData: result2}))
     .catch(err => console.log(err));
