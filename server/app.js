@@ -6,7 +6,8 @@ dotenv.config();
 // const mybatisMapper = require('mybatis-mapper')
 
 const dbService = require('./dbService');
-const PORT = process.env.PORT
+// const PORT = process.env.PORT
+const PORT = 9298
 
 app.use(cors());
 app.use(express.json());
