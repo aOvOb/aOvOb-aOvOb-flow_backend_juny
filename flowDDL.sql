@@ -15,6 +15,9 @@ COLLATE=utf8_general_ci;
 CREATE TABLE flow.fw_ext_ban_fixed (
 	`NAME` varchar(100) NOT NULL,
 	`VALUE` varchar(1) NOT NULL,
+	`SYS_CREATE_DATE` DATETIME NOT NULL,
+	`SYS_MODIFY_DATE` DATETIME NOT NULL,
+	`FK_USER_ID` varchar(32) NULL,
 	PRIMARY KEY (`NAME`)
 )
 ENGINE=InnoDB
