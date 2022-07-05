@@ -3,7 +3,7 @@
 <mapper namespace="flow">
 
 <!-- insert -->
-<insert id="insertExtName">
+<insert id="insertBanExt">
   INSERT INTO fw_ext_ban 
   (
     SYS_ID, 
@@ -24,9 +24,30 @@
   );
 </insert>
 
+<insert id="insertFixedBanExt">
+  INSERT INTO fw_ext_ban_fixed
+  (
+    FIXED_EXT_NAME,
+    FIXED_EXT_VALUE
+  )
+  VALUES
+  (
+    #{sInsertFixedBanExt.FIXED_EXT_NAME},
+    #{sInsertFixedBanExt.FIXED_EXT_VALUE}
+  );
+</insert>
+
 <!-- select -->
 <select id="getBannedExtList">
   SELECT * FROM fw_ext_ban WHERE SYS_FLAG = 1;
+</select>
+
+<select id="selectFixedBanExt">
+  SELECT * FROM fw_ext_ban_fixed WHERE FIXED_EXT_NAME = #{sInsertFixedBanExt.FIXED_EXT_NAME};
+</select>
+
+<select id="selectFixedChecked">
+  SELECT * FROM fw_ext_ban_fixed WHERE FIXED_EXT_VALUE = "Y"
 </select>
 
 <!-- delete -->
@@ -40,9 +61,17 @@
 <update id="updateBannedExt">
   UPDATE fw_ext_ban 
   SET 
-  FW_EXT_NAME = #{sUpdateExt.FW_EXT_NAME} 
+  FW_EXT_NAME = #{sUpdateExt.FW_EXT_NAME},
+  SYS_MODIFY_DATE = now()
   WHERE SYS_ID = #{sUpdateExt.SYS_ID}
   AND SYS_FLAG = 1;
+</update>
+
+<update id="UpdateFixedBanExt">
+  UPDATE fw_ext_ban_fixed
+  SET
+  FIXED_EXT_VALUE = #{sInsertFixedBanExt.FIXED_EXT_VALUE}
+  WHERE FIXED_EXT_NAME = #{sInsertFixedBanExt.FIXED_EXT_NAME}
 </update>
 
 <!-- search -->

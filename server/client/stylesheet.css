@@ -6,6 +6,7 @@ main {
 
 table {
     margin: 50px auto;
+    margin-top: 5px;
 }
 
 table, th, td {

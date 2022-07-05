@@ -46,27 +46,76 @@ class DbService {
             query.sGetList = mybatisMapper.getStatement('flow', 'getBannedExtList', params, {language: 'sql', indent: '  '})
             connection.query(query.sGetList, (err, data) => {
                 if (err) reject(err.message);
-                console.log(data)
+                // console.log(data)
                 resolve(data);
             })
         });
-    
+    }
+
+    static getAllCheckData() {
+      
+        return new Promise((resolve, reject) => {
+            params.sGetList = {}
+            query.sGetList = mybatisMapper.getStatement('flow', 'selectFixedChecked', params, {language: 'sql', indent: '  '})
+            connection.query(query.sGetList, (err, data) => {
+                if (err) reject(err.message);
+                // console.log(data)
+                resolve(data);
+            })
+        });
     }
 
 
-    static insertNewName(client) {
+    static insertBanExt(client) {
         return new Promise((resolve, reject) => {
             params.sInsertBanExt = {
                 FW_EXT_NAME: client.name
             }
-            query.sInsertBanExt = mybatisMapper.getStatement('flow', 'insertExtName', params, {language: 'sql', indent: '  '})
+            query.sInsertBanExt = mybatisMapper.getStatement('flow', 'insertBanExt', params, {language: 'sql', indent: '  '})
             // console.log('real query : ',query.sInsertBanExt)
             connection.query(query.sInsertBanExt, (err, data, fields) => {
-                console.log('doit DATA $$$$ ',data)
-                console.log('doit Feild $$$$$',fields)
                 if (err) reject(err)
                 resolve(data);
             })
+        });
+    }
+
+    static insertFixedBanExt(client) {
+        return new Promise((resolve, reject) => {
+            let existDataCheck =[]
+            params.sInsertFixedBanExt = {
+                FIXED_EXT_NAME: client.name,
+                FIXED_EXT_VALUE: client.value
+            }
+
+            query.sSelectFixedBanExt = mybatisMapper.getStatement('flow', 'selectFixedBanExt', params, {language: 'sql', indent: '  '})
+            // console.log('real query : ',query.sSelectBanExt)
+            connection.query(query.sSelectFixedBanExt, (err, data, fields) => {
+                if (err) reject(err)
+                data.length > 0 ? existDataCheck.push(data) : {};
+                // resolve(data);
+                console.log('1111111111111111111111', existDataCheck)
+                console.log('2222222222222222222222', data)
+                console.log('existDataCheck.length',existDataCheck.length)
+                
+                if (existDataCheck.length > 0){
+                    console.log('do update')
+                    query.sUpdateFixedBanExt = mybatisMapper.getStatement('flow', 'UpdateFixedBanExt', params, {language: 'sql', indent: '  '})
+                    // console.log('real query : ',query.sUpdateBanExt)
+                    connection.query(query.sUpdateFixedBanExt, (err, data, fields) => {
+                        if (err) reject(err)
+                        resolve(data);
+                    })
+                } else {
+                    query.sInsertFixedBanExt = mybatisMapper.getStatement('flow', 'insertFixedBanExt', params, {language: 'sql', indent: '  '})
+                    // console.log('real query : ',query.sInsertBanExt)
+                    connection.query(query.sInsertFixedBanExt, (err, data, fields) => {
+                        if (err) reject(err)
+                        resolve(data);
+                    })
+                }
+            })
+            
         });
     }
 
