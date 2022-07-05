@@ -1,4 +1,5 @@
 let loadedData
+    ,dupCheckFlag = null
 
 document.addEventListener('DOMContentLoaded', function () {
     fetch('http://localhost:9298/getAll')
@@ -77,42 +78,54 @@ const addBtn = document.querySelector('#add-name-btn');
 
 addBtn.onclick = function () {
     const nameInput = document.querySelector('#name-input');
-    const name = nameInput.value;
+    const name = nameInput.value.replace(/'|;|--|,|-/g, '')
     nameInput.value = "";
 
     // 이름 중복체크 로직
-    let arrExtName = []
-    try{
-        if(name=='' || name == null|| name==undefined){
-            alert('확장자명을 입력해주세요')
-            throw '확장자명을 입력해주세요'
-        }
-        for( let i = 0; i<loadedData.length; i++){
-            arrExtName.push(loadedData[i].FW_EXT_NAME)
-        }
-        console.log('$$$이름중복체크', arrExtName)
-        console.log('$$$$$name value : ', name)
-        if(arrExtName.includes(name)){
-            alert('This Extension is Already Banned !')
-            throw 'This Extension is Already Banned !'
-        } 
-    } catch{
-        console.log()
+    let arrExtName = []    
+    if(name=='' || name == null|| name==undefined){
+        alert('확장자명을 입력해주세요')
+        throw '확장자명을 입력해주세요'
     }
 
-    fetch('http://localhost:9298/insert', {
-        headers: {
-            'Content-type': 'application/json'
-        },
-        method: 'POST',
-        body: JSON.stringify({ 
-            name : name
-        })
-    })
-    .then(response => response.json())
-    .then(data => insertRowIntoTable(data['data']));
+    
+    function dupCheck(name){
+        if(loadedData){
+            for( let i = 0; i<loadedData.length; i++){
+                arrExtName.push(loadedData[i].FW_EXT_NAME)
+            }
+        }
 
-    location.reload()
+        if(arrExtName.includes(name)){
+            alert('This Extension is Already Banned !')
+            dupCheckFlag = 1
+            throw 'This Extension is Already Banned !'
+        }
+    }
+
+    try{
+        dupCheck(name)
+
+        if(dupCheckFlag == null){
+            fetch('http://localhost:9298/insert', {
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                method: 'POST',
+                body: JSON.stringify({ 
+                    name : name
+                })
+            })
+            .then(response => response.json())
+            .then(data => insertRowIntoTable(data['data']))
+    
+            location.reload()
+        }
+    }catch(e) {
+        console.error(e)
+    }
+
+    
 }
 
 // const checkBox = document.querySelector('#checkBox')
