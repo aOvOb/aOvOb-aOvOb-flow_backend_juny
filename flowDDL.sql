@@ -41,4 +41,12 @@ CREATE TABLE `fw_user` (
 
 
   
-  
+-- function
+CREATE DEFINER=CURRENT_USER FUNCTION `flow`.`getNewID`() RETURNS char(32) CHARSET utf8
+BEGIN
+
+
+RETURN replace(UUID(), '-','');
+
+
+END
