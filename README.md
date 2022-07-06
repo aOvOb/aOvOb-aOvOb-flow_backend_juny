@@ -85,7 +85,7 @@
 
 #### 3-2 확장자 옆 X 버튼
 ###### 화면 구현에 실패해서 delete버튼으로 대체하였습니다.  
-###### 2-2에서 html table (조회된 데이터 출력)을 생성할 때 html내부에 해당 데이터의 id를 삽입하였습니다. delete버튼 클릭시 해당 아이디로 delete함수를 호출해 삭제합니다.  
+###### 2-2에서 html table (조회된 데이터 출력)을 생성할 때 html내부에 해당 데이터의 SYS_ID를 삽입하였습니다. delete버튼 클릭시 해당 SYS_ID로 delete함수를 호출해 삭제합니다.  
 ###### edit버튼도 동일한 방법으로 구현하였습니다. edit버튼은 현재 주석처리 되어있으며,  
 ###### flow_backend_juny/server/client 경로의 [index.js 183번 라인], [index.html 59번 라인] 주석 해제시 update버튼이 화면에 출력됩니다.
 
