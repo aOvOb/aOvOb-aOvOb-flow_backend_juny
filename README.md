@@ -4,7 +4,7 @@
 ###### dataBase는 mysql 5.7버전을 이용했습니다.
 ######   
 ######    
-###### ![erd](https://drive.google.com/file/d/1ERC3j_2tU_8xU4FMRPdIcnFjG1pI6qKU/view?usp=sharing)
+###### ![erd](./image/)
 ###### 
 ###### 
 ###### ==========================================  
