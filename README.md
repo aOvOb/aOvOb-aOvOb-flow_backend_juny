@@ -30,10 +30,18 @@
 
 
 #### 실행 방법
-######
-######
-######
-######
+###### git clone 후 flow_backend_juny/server 경로에서 npm i 실행  
+###### DB생성정보 
+> host: 'localhost',  
+  user: 'root',  
+  password: '',  
+  database: 'flow',  
+  port: 3306
+###### clone받은 폴더에 있는 flowDDL의 내용을 DB에서 실행  
+###### flow_backend_juny/server 경로에서 npm start실행
+###### localhost:9298 접속
+
+
 
 
 <br>
