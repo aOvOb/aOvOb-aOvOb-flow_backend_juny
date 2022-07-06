@@ -15,7 +15,7 @@
 ###### 
 ###### fw_user, fw_ext_ban, fw_ext_ban_fixed 총 3개의 테이블을 만들었습니다.  
 ###### 공통필드는 SYS_ID, SYS_FLAG, SYS_CREATE_DATE, SYS_MODIFY_DATE로 총 4가지 입니다.    
-###### SYS_ID는 primary key로 데의터 고유 아이디입니다. UUID에서 하이픈을 지운 값을 return해주는 getNewID라는 함수를 만들어 insert될 때마다 고유 아이디를 부여하게 만들었습니다.  
+###### SYS_ID는 primary key로 데터 고유 아이디입니다. UUID에서 하이픈을 지운 값을 return해주는 getNewID라는 함수를 만들어 insert될 때마다 고유 아이디를 부여하게 만들었습니다.  
 ###### SYS_FLAG는 논리삭제를 위한 값 입니다. SYS_FLAG가 1이면 활성, 0이면 삭제 입니다. 물리적인 삭제가 없기때문에 모든 데이터가 기록에 남아, 데이터 CRUD에 대한 로그를 따로 만들지 않기위해 구현하였습니다.
 ###### SYS_CREATAE_DATE는 데이터가 생성된 날짜입니다. 
 ###### SYS_MODIFY_DATE는 데이터가 수정된 날짜입니다.
