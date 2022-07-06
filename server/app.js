@@ -21,9 +21,7 @@ app.listen(PORT, ()=> console.log(`Server listening on port http://localhost:${P
 
 // create
 app.post('/insert', (request, response) => {
-    const client = request.body
-    const db = dbService.getDbServiceInstance()
-    
+    const client = request.body   
     const result = dbService.insertBanExt(client)
 
     result
@@ -32,9 +30,7 @@ app.post('/insert', (request, response) => {
 })
 
 app.post('/insertFixed', (request, response) => {
-    const client = request.body
-    const db = dbService.getDbServiceInstance()
-    
+    const client = request.body  
     const result = dbService.insertFixedBanExt(client)
 
     result
@@ -61,9 +57,6 @@ app.get('/getAll', async (request, response) => {
 // update
 app.patch('/update', (request, response) => {
     const client = request.body
-    // console.log('이건 전문',client)
-    const db = dbService.getDbServiceInstance()
-
     const result = dbService.updateNameById(client)
     
     result
@@ -74,8 +67,6 @@ app.patch('/update', (request, response) => {
 // delete
 app.delete('/delete/:SYS_ID', (request, response) => {
     const { SYS_ID } = request.params
-    const db = dbService.getDbServiceInstance()
-
     const result = dbService.deleteRowById(SYS_ID)
     
     result
@@ -85,8 +76,6 @@ app.delete('/delete/:SYS_ID', (request, response) => {
 
 app.get('/search/:FW_EXT_NAME', (request, response) => {
     const { FW_EXT_NAME } = request.params
-    const db = dbService.getDbServiceInstance()
-
     const result = dbService.searchByName(FW_EXT_NAME)
     
     result

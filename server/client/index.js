@@ -75,6 +75,10 @@ addBtn.onclick = function () {
         alert('확장자명을 입력해주세요')
         throw '확장자명을 입력해주세요'
     }
+    if(name.length > 20){
+        alert('확장자명은 최대 20자입니다.')
+        throw '확장자명은 최대 20자입니다.'
+    }
     
     function dupCheck(name){
         if(loadedData){
