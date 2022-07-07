@@ -3,6 +3,8 @@
 
 [리팩터링](https://github.com/aOvOb/flow_backend_juny_refactoring)
 
+> MVC패턴 적용, AWS-RDS 적용, 
+
 <br>
 <br>
 
