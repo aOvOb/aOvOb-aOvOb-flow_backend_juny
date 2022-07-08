@@ -4,7 +4,7 @@
 [리팩터링](https://github.com/aOvOb/flow_backend_juny_refactoring)
 
 > MVC패턴 적용, AWS-RDS 적용, docker와 oracle cloud instances를 이용한 서버 호스팅  
-연결 링크 👉 [http://aovob.r-e.kr:1401/](http://aovob.r-e.kr:1401/) 
+링크 👉 [http://aovob.r-e.kr:1401/](http://aovob.r-e.kr:1401/) 
 
 <br>
 <br>
